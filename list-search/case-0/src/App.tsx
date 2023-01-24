@@ -9,21 +9,23 @@ function App() {
   const [query, setQuery] = useState<string>("");
 
   useEffect(() => {
-    api.search(query);
+    api.search(query).then(setProducts)
   }, [query]);
+
+  let productsSale = products.filter(item => item.price < 100)
 
   return (
     <main>
       <h1>Tienda digitaloncy</h1>
-      <input name="text" placeholder="tv" type="text" onChange={(e) => setQuery(e.target)} />
+      <input name="text" placeholder="tv" type="text" onChange={(e) => setQuery(e.target.value)} />
       <ul>
-        {products.map((product) => (
-          <li key={product.id}>
+        { products.length ? products.map((product) => (
+          <li key={product.id} className={product.price < 100 ? "sale" : ""}>
             <h4>{product.title}</h4>
             <p>{product.description}</p>
             <span>$ {product.price}</span>
           </li>
-        ))}
+        )): <span>Loading...</span>}
       </ul>
     </main>
   );
