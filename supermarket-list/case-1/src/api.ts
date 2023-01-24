@@ -2,7 +2,7 @@ import {Item} from "./types";
 
 export default {
   list: (): Promise<Item[]> =>
-    new Promise((resolve) =>
+    new Promise((resolve, reject) =>
       setTimeout(() => {
         resolve([
           {
